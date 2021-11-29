@@ -8,6 +8,7 @@ import (
 	selenium "sourcegraph.com/sourcegraph/go-selenium"
 )
 
+// uploadPhoto upload photo to post form
 func uploadPhoto(webDriver selenium.WebDriver, photoPath string) error {
 
 	// https://stackoverflow.com/questions/52864531/posting-uploading-an-image-to-instagram-using-selenium-not-using-an-api
@@ -35,6 +36,7 @@ func uploadPhoto(webDriver selenium.WebDriver, photoPath string) error {
 	return nil
 }
 
+// CreateNewPost create new post
 func CreateNewPost(webDriver selenium.WebDriver, gap time.Duration) error {
 
 	// SELECTORS

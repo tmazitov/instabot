@@ -9,6 +9,7 @@ import (
 	selenium "sourcegraph.com/sourcegraph/go-selenium"
 )
 
+// SetAuth auth user
 func SetAuth(webDriver selenium.WebDriver, gap time.Duration) error {
 
 	// Get username
