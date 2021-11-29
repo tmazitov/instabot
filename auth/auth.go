@@ -12,7 +12,7 @@ import (
 func SetAuth(webDriver selenium.WebDriver, gap time.Duration) error {
 
 	// Get username
-	username, exists := os.LookupEnv("USERNAME")
+	username, exists := os.LookupEnv("LOGIN")
 	if !exists {
 		return errors.New("failed to get user login")
 	}
