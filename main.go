@@ -4,10 +4,13 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
+	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/winterssy/instabot"
+	"golang.org/x/net/proxy"
 )
 
 // init is invoked before main()
@@ -33,11 +36,36 @@ func main() {
 
 	// Bot init
 	bot := instabot.New(username, password)
+
+	// Init context
 	ctx, cancel := context.WithCancel(context.Background())
+	proxyUrl := "127.0.0.1:9150"
+
+	/*
+		Proxy activation
+	*/
+
+	// Init Dialer that makes SOCKS5 connection
+	dialer, err := proxy.SOCKS5("tcp", proxyUrl, nil, proxy.Direct)
+	if err != nil {
+		panic(err)
+	}
+
+	// Init conn to proxy
+	dialContext := func(ctx context.Context, network, address string) (net.Conn, error) {
+		return dialer.Dial(network, address)
+	}
+
+	// Set dial ctx
+	bot.Client.Transport = &http.Transport{DialContext: dialContext, DisableKeepAlives: true}
 	defer cancel()
 
+	/*
+		Main part
+	*/
+
 	// Account auth
-	_, err := bot.Login(ctx, true)
+	_, err = bot.Login(ctx, true)
 	if err != nil {
 		panic(err)
 	}

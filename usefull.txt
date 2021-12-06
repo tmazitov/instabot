@@ -1,0 +1,5 @@
+https://github.com/b31ngd3v/MyIGBot/blob/main/myigbot.py 
+Бот написанный на Python, хороший референс
+
+https://github.com/adw0rd/instagrapi
+Api для instagram на Python
